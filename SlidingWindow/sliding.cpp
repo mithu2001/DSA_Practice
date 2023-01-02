@@ -2,6 +2,7 @@
 using namespace std;
 
 //brute force Approach
+/*
 int maxSubarraySum(int arr[], int n, int k){
     
     int sum = 0;
@@ -34,9 +35,47 @@ int minSubarraySum(int arr[], int n, int k){
     //  cout<<endl;
     return mini;
 }
-
+*/
 
 //Optimized Approach
+int maxSubarraySum(int arr[], int n, int k){
+  
+    //Approach
+    //first take sum of first k element
+    //then add k+1 th element and subtract window starting element
+    int sum = 0;
+    int ans = INT16_MIN;
+    //sum of first k element
+    for(int i = 0; i<k; i++ ){
+     sum+=arr[i];
+    }
+    ans = max(ans, sum);
+    //traverse window and add and remove window last and first element
+    for(int i =1; i<n-k+1; i++){
+       sum-=arr[i-1];
+       sum+=arr[i+k-1];
+       ans = max(ans,sum);
+    }
+
+ return ans;
+}
+int minSubarraySum(int arr[], int n, int k){
+int sum = 0;
+    int ans = INT_MAX;
+    //sum of first k element
+    for(int i = 0; i<k; i++ ){
+     sum+=arr[i];
+    }
+    ans = min(ans, sum);
+    //traverse window and add and remove window last and first element
+    for(int i =1; i<n-k+1; i++){
+       sum-=arr[i-1];
+       sum+=arr[i+k-1];
+       ans = min(ans,sum);
+    }
+
+ return ans;
+}
 
 int main(){
     int arr[6] = {3,5,2,9,0,6};
